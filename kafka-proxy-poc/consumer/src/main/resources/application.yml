@@ -2,12 +2,34 @@ greeting:
   message: "hello"
 mp:
   messaging:
-    outgoing:
-      words-out:
-        topic: "words"
     incoming:
-      words-in:
+      incoming-channel:
+        connector: smallrye-kafka
+        topic: "incoming"
         auto:
           offset:
             reset: "earliest"
-        topic: "words"
+        value:
+          deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        group:
+          id: kafka-consumer-group
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+
+# OpenTelemetry configuration for metrics
+quarkus:
+  application:
+    name: kafka-consumer
+  log:
+    console:
+      format: "%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n"
+  otel:
+    exporter:
+      otlp:
+        endpoint: http://localhost:4317
+    metrics:
+      enabled: true
+    logs:
+      enabled: true

@@ -20,6 +20,7 @@ dependencies {
     implementation("io.quarkus:quarkus-messaging-kafka")
     implementation("io.quarkus:quarkus-opentelemetry")
     implementation("io.quarkus:quarkus-config-yaml")
+    implementation("io.quarkus:quarkus-scheduler")
     implementation("io.quarkus:quarkus-arc")
     testImplementation("io.quarkus:quarkus-junit5")
 }

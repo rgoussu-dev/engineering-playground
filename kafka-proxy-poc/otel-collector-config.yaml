@@ -13,6 +13,18 @@ receivers:
               labels:
                 application: 'kafka'
 
+        - job_name: 'quarkus-applications'
+          scrape_interval: 10s
+          static_configs:
+            - targets: ['producer:8080']
+              labels:
+                service_name: 'kafka-producer'
+                application: 'quarkus'
+            - targets: ['consumer:8080']
+              labels:
+                service_name: 'kafka-consumer'
+                application: 'quarkus'
+
 processors:
   batch:
     timeout: 1s
